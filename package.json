@@ -1,0 +1,24 @@
+{
+  "name": "react-pretty-input",
+  "version": "1.0.1",
+  "description": "A pretty input form field for React projects.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --reporter spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elmao79/react-pretty-input.git"
+  },
+  "keywords": [
+    "react",
+    "reactjs",
+    "input"
+  ],
+  "author": "OSCAR MARTIN <elmao79@gmail.com> (http://omartin.es)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/elmao79/react-pretty-input/issues"
+  },
+  "homepage": "https://github.com/elmao79/react-pretty-input#readme"
+}
