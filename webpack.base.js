@@ -30,15 +30,11 @@ module.exports = {
                         loader: 'css-loader',
                         query: {
                             modules: true,
-                            localIdentName: '[name]__[local]'
+                            localIdentName: '[local]'
                         }
                     },
                     {
-                        loader: 'sass-loader',
-                        query: {
-                            modules: true,
-                            localIdentName: '[name]__[local]'
-                        }
+                        loader: 'sass-loader'
                     }
                 ]
             }
