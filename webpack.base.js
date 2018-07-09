@@ -12,10 +12,6 @@ module.exports = {
         path: PATHS.DIST,
         filename: '[name].js'
     },
-    devServer: {
-        port: 8081,
-        contentBase: PATHS.DIST
-    },
     module: {
         rules: [
             {
