@@ -10,7 +10,9 @@ module.exports = {
     },
     output: {
         path: PATHS.DIST,
-        filename: '[name].js'
+        filename: '[name].js',
+        library: 'ReactPrettyInput',
+        libraryTarget: 'umd'
     },
     module: {
         rules: [
