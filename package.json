@@ -2,7 +2,7 @@
   "name": "react-pretty-input",
   "version": "1.0.4",
   "description": "A pretty input form field for React projects.",
-  "main": "dist/index.js",
+  "main": "index.js",
   "scripts": {
     "test": "mocha --reporter spec",
     "build": "webpack --mode production --config webpack.prod.js",
@@ -33,6 +33,7 @@
     "babel-loader": "^7.1.5",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
     "babel-preset-es2015": "^6.24.1",
     "compass-sass-mixins": "^0.12.7",
     "css-loader": "^1.0.0",
