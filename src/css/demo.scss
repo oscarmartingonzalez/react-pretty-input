@@ -2,4 +2,15 @@
 .container {
     width: 200px;
 }
- 
+
+.pretty-input-text {
+    width: 500px;
+}
+
+.pretty-input-text .show-label label.success-label {
+    color: green;
+}
+
+.pretty-input-text .show-label.is-active label.success-label {
+    color: green;
+}

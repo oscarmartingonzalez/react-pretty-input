@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import prettyInputTextStyle from './css/prettyInputText.scss';
 
+const defaultOnValidation = e => true;
+
 class PrettyInputText extends Component {
 
     constructor(props) {
@@ -10,7 +12,7 @@ class PrettyInputText extends Component {
 
         this.state = {
             inputValue: this.props.inputValue,
-            labelShow: this.props.labelShow,
+            labelShow: false,
             inputActivated: false,
             errorActivated: false
         };
@@ -41,6 +43,9 @@ class PrettyInputText extends Component {
 
     handleTextInputOnBlur(e) {
         this.setState({ inputActivated: false });
+        if (!this.props.onValidation(e)) {
+            this.setState({ errorActivated: true });
+        }
     }
 
     render() {
@@ -62,7 +67,7 @@ class PrettyInputText extends Component {
                     <input
                         type="text"
                         maxLength={this.props.size}
-                        name="test"
+                        name={this.props.name}
                         placeholder={this.props.inputValue}
                         onChange={this.handleTextInputChange}
                         onFocus={this.handleTextInputOnFocus}
@@ -79,18 +84,18 @@ class PrettyInputText extends Component {
 PrettyInputText.propTypes = {
     name: PropTypes.string.isRequired,
     inputValue: PropTypes.string.isRequired,
-    errorValue: PropTypes.string.isRequired,
+    errorValue: PropTypes.string,
     size: PropTypes.number,
     labelShow: PropTypes.bool,
-    isRequired: PropTypes.bool
+    isRequired: PropTypes.bool,
+    onValidation: PropTypes.func
 };
 
 PrettyInputText.defaultProps = {
-    inputValue: 'I\'m a pretty input text',
     errorValue: 'Error',
     size: 50,
-    labelShow: false,
-    isRequired: false
+    isRequired: false,
+    onValidation: defaultOnValidation
 };
 
 export default PrettyInputText;
