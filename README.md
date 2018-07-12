@@ -3,13 +3,9 @@
 ## Overview
 A pretty input form field for React projects.
 
-[npm-image]: https://img.shields.io/npm/v/react-pretty-input.svg?style=flat-square
-[npm-url]: http://npmjs.org/package/react-pretty-input
-[download-image]: https://img.shields.io/npm/dm/react-pretty-input.svg?style=flat-square
-[download-url]: https://npmjs.org/package/react-pretty-input
-
 [![NPM version][npm-image]][npm-url]
 [![npm download][download-image]][download-url]
+[![MIT License][license-badge]][license-url]
 
 ## [Changelog](https://github.com/elmao79/react-pretty-input/blob/master/CHANGELOG.md)
 
@@ -70,3 +66,14 @@ This prop is used to set the css width of the component.
 
 ## Contributing
 Use [Github issues](https://github.com/elmao79/react-pretty-input/issues) for feature requests and bug reports. We actively accept pull requests.
+
+## License
+
+MIT
+
+[npm-image]: https://img.shields.io/npm/v/react-pretty-input.svg?style=flat-square
+[npm-url]: http://npmjs.org/package/react-pretty-input
+[download-image]: https://img.shields.io/npm/dm/react-pretty-input.svg?style=flat-square
+[download-url]: https://npmjs.org/package/react-pretty-input
+[license-badge]: https://img.shields.io/npm/l/react-pretty-input.svg?style=flat-square
+[license-url]: https://github.com/elmao79/react-pretty-input/blob/master/LICENSE
