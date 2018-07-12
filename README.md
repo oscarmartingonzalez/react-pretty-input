@@ -25,10 +25,10 @@ import { PrettyInputText } from 'react-pretty-input';
 
 ```jsx
 // In JSX
-<PrettyInputText name="email" inputValue="Email Address" errorValue="Invalid Email Address" isRequired />
+<PrettyInputText name="email" labelText="Email Address" errorValue="Invalid Email Address" isRequired />
 
 // In vanilla JS
-React.createElement(PrettyInputText, { name: 'email', inputValue: 'Email Address', errorValue: 'Invalid Email Address', isRequired: true});
+React.createElement(PrettyInputText, { name: 'email', labelText: 'Email Address', errorValue: 'Invalid Email Address', isRequired: true});
 ```
 
 ## Props
