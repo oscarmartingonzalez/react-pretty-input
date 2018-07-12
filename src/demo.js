@@ -48,4 +48,8 @@ class App extends Component {
     }
 }
 
-ReactDOM.render(<App />, document.getElementById('demo-container'));
+export default App;
+
+if (!RUNENV || RUNENV !== 'TDD') {
+    ReactDOM.render(<App />, document.getElementById('app'));
+}
