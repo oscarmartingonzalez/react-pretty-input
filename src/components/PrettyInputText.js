@@ -3,16 +3,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import prettyInputTextStyle from './css/prettyInputText.scss';
 
-const defaultOnValidation = e => true;
-
 class PrettyInputText extends Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            inputValue: this.props.inputValue,
-            labelShow: false,
+            labelShow: (this.props.inputValue.length > 0) ? true : false,
             inputActivated: false,
             errorActivated: false
         };
@@ -20,21 +17,37 @@ class PrettyInputText extends Component {
         this.handleTextInputChange = this.handleTextInputChange.bind(this);
         this.handleTextInputOnFocus = this.handleTextInputOnFocus.bind(this);
         this.handleTextInputOnBlur = this.handleTextInputOnBlur.bind(this);
+        this.handleOnKeyPress = this.handleOnKeyPress.bind(this);
     }
 
-    handleTextInputChange(e) {
-        if (e.target.value.toString().length > 0) {
-            this.setState({ labelShow: true });
-            if (this.state.errorActivated) {
-                this.setState({ errorActivated: false });
-            }
+    static getDerivedStateFromProps(props, state) {
+        if (props.inputValue.length > 0) {
+            state = Object.assign(state, { labelShow: true });
         } else {
-            this.setState({ labelShow: false });
-            if (this.props.isRequired) {
-                this.setState({ errorActivated: true });
+            state = Object.assign(state, { labelShow: false });
+        }
+
+        return state;
+    }
+    
+    handleTextInputChange(e) {
+        this.setState({ inputValue: e.target.value.toString() });
+        if (this.props.isEnabled) {
+            if (e.target.value.toString().length > 0) {
+                this.setState({ labelShow: true });
+                if (this.state.errorActivated) {
+                    this.setState({ errorActivated: false });
+                }
+            } else {
+                this.setState({ labelShow: false });
+                if (this.props.isRequired) {
+                    this.setState({ errorActivated: true });
+                }
+            }
+            if (this.props.onChange) {
+                this.props.onChange(e);
             }
         }
-        this.setState({ inputValue: e.target.value });
     }
 
     handleTextInputOnFocus(e) {
@@ -48,8 +61,15 @@ class PrettyInputText extends Component {
         }
     }
 
+    handleOnKeyPress(e) {
+        if (this.props.isEnabled) {
+            if (this.props.onKeyPress) {
+                this.props.onKeyPress(e);
+            }
+        }
+    }
+
     render() {
-        const inputValue = this.state.inputValue || '';
         let mainContainerStyleClasses = prettyInputTextStyle['pretty-input-text'];
         if (this.state.errorActivated) {
             mainContainerStyleClasses += ' error';
@@ -62,19 +82,24 @@ class PrettyInputText extends Component {
             insideContainerStyleClasses += ' show-label';
         }
         return (
-            <div className={mainContainerStyleClasses}>
-                <div className={insideContainerStyleClasses}>
+            <div className={mainContainerStyleClasses} style={{width: `${this.props.width}px`}}>
+                <div className={insideContainerStyleClasses} style={{background: this.props.backgroundColor}}>
                     <input
                         type="text"
                         maxLength={this.props.size}
                         name={this.props.name}
-                        placeholder={this.props.inputValue}
+                        placeholder={this.props.labelText}
+                        value={this.props.inputValue}
                         onChange={this.handleTextInputChange}
                         onFocus={this.handleTextInputOnFocus}
                         onBlur={this.handleTextInputOnBlur}
+                        onKeyPress={this.handleOnKeyPress}
+                        style={{color: this.props.labelColor}}
+                        disabled={!this.props.isEnabled}
                     />
-                    <label className="success-label">{this.props.inputValue}</label>
+                    <label className="success-label" style={{color: this.state.labelShow ? this.props.labelColor: this.props.backgroundColor}}>{this.props.labelText}</label>
                     <label className="error-label">{this.props.errorValue}</label>
+
                 </div>
             </div>
         )
@@ -83,19 +108,33 @@ class PrettyInputText extends Component {
 
 PrettyInputText.propTypes = {
     name: PropTypes.string.isRequired,
-    inputValue: PropTypes.string.isRequired,
+    labelText: PropTypes.string.isRequired,
+    inputValue: PropTypes.string,
     errorValue: PropTypes.string,
     size: PropTypes.number,
     labelShow: PropTypes.bool,
+    isEnabled: PropTypes.bool,
     isRequired: PropTypes.bool,
-    onValidation: PropTypes.func
+    onValidation: PropTypes.func,
+    onChange: PropTypes.func,
+    onKeyPress: PropTypes.func,
+    labelColor: PropTypes.string,
+    backgroundColor: PropTypes.string,
+    width: PropTypes.number
 };
 
 PrettyInputText.defaultProps = {
+    inputValue: '',
     errorValue: 'Error',
     size: 50,
+    isEnabled: true,
     isRequired: false,
-    onValidation: defaultOnValidation
+    onValidation: e => true,
+    onChange: null,
+    onKeyPress: null,
+    labelColor: '#0069ff',
+    backgroundColor: '#fff',
+    width: 200
 };
 
 export default PrettyInputText;

@@ -27,8 +27,11 @@ React.createElement(PrettyInputText, { name: 'email', inputValue: 'Email Address
 #### `name` (required) (type: `string`)
 This prop is the name attribute of the generated input tag.
 
-#### `inputValue` (required) (type: `string`)
+#### `labelText` (required) (type: `string`)
 This prop is the description string of the field. It's used to show the placeholder and the label of the input to describe it.
+
+#### `inputValue` (optional) (type: `string`)
+This prop is the default value of the component.
 
 #### `errorValue` (optional) (type: `string`) (default: `'Error'`)
 This prop is the description string of and error occurred in the field. It's used to show the error in the label to describe it.
@@ -40,3 +43,18 @@ This prop is used to limit the input string length of the field.
 This prop is used to indicate if the input string of the field is required. If the prop value is `true` and the field is empty an error is showed in label and border field.
 
 #### `onValidation` (optional) (type: `function`) (default: `e => true`)
+
+#### `onChange` (optional) (type: `function`) (default: `null`)
+This prop is used to pass a callback function invoked on input text change.
+
+#### `onKeyPress` (optional) (type: `function`) (default: `null`)
+This prop is used to pass a callback function invoked on every key press event.
+
+#### `labelColor` (optional) (type: `string`) (default: `#0069ff`)
+This prop is used to set the color of the label.
+
+#### `backgroundColor` (optional) (type: `string`) (default: `#fff`)
+This prop is used to set the background color of the component.
+
+#### `width` (optional) (type: `integer`) (default: `200`)
+This prop is used to set the css width of the component.

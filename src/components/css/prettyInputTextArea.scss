@@ -6,7 +6,7 @@ $darkGray: rgb(3, 27, 78);
 $darkGrayAlpha: 1;
 $lightGray: #f1f1f1;
 
-.pretty-input-text {
+.pretty-input-text-area {
     border: solid 1px $lightGray;
     border-color: $lightGray;
     border-radius: 5px;
@@ -34,7 +34,7 @@ $lightGray: #f1f1f1;
         background: transparent;
         border: none;
         border-radius: inherit;
-        @include box-shadow(none);
+        border-color: inherit;
         color: inherit;
         font-size: inherit;
         height: 100%;
@@ -42,25 +42,21 @@ $lightGray: #f1f1f1;
         opacity: inherit;
         outline: none;
         overflow: hidden;
-        padding: 0 10%;
+        padding: 0 5%;
         position: absolute;
         @include transition(all 0.30s ease-in-out);
-        width: 80%;
+        width: 90%;
         z-index: 3;
     }
 
-    .show-label input[type="text"] {
-        @include transform(translateY(15%));
-    }
-
     label {
-        color: transparent;
+        color: #fff;
         font-size: 11px;
         font-weight: 400;
-        left: 10%;
+        left: 17px;
         pointer-events: none;
         position: absolute;
-        top: 25%;
+        top: 10px;
         @include transition(all 0.30s ease-in-out);
         z-index: 2;
     }
@@ -74,8 +70,7 @@ $lightGray: #f1f1f1;
     }
 
     .show-label label {
-        @include transform(translateY(-50%));
-        z-index: 5;
+        @include transform(translateY(-3px));
     }
 
     .show-label label.success-label {
@@ -85,24 +80,28 @@ $lightGray: #f1f1f1;
     .show-label label.error-label {
         color: #f00;
     }
+
+    .show-label input {
+        @include transform(translateY(15%));
+    }
 }
 
-.pretty-input-text.error .inside-container {
+.pretty-input-text-area.error .inside-container {
     @include box-shadow(0 0 1px 1px #f00);
 }
 
-.pretty-input-text.error .show-label label.success-label {
+.pretty-input-text-area.error .show-label label.success-label {
     display: none;
 }
 
-:not(.pretty-input-text.error) .show-label label.success-label {
+:not(.pretty-input-text-area.error) .show-label label.success-label {
     display: block;
 }
 
-.pretty-input-text .show-label label.error-label {
+.pretty-input-text-area .show-label label.error-label {
     display: none;
 }
 
-.pretty-input-text.error .show-label label.error-label {
+.pretty-input-text-area.error .show-label label.error-label {
     display: block;
 }
