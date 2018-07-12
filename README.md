@@ -1,14 +1,22 @@
 # react-pretty-input
+
+## Overview
 A pretty input form field for React projects.
+
+[npm-image]: https://img.shields.io/npm/v/react-pretty-input.svg?style=flat-square
+[npm-url]: http://npmjs.org/package/react-pretty-input
+[download-image]: https://img.shields.io/npm/dm/react-pretty-input.svg?style=flat-square
+[download-url]: https://npmjs.org/package/react-pretty-input
+
+[![NPM version][npm-image]][npm-url]
+[![npm download][download-image]][download-url]
 
 ## [Changelog](https://github.com/elmao79/react-pretty-input/blob/master/CHANGELOG.md)
 
-## Installation:
-```
-npm install react-pretty-input
-```
+## Installation
+[![react-pretty-input](https://nodei.co/npm/react-pretty-input.png)](https://npmjs.org/package/react-pretty-input)
 
-## Usage:
+## Usage
 
 ES6 import:
 ```js
@@ -24,6 +32,7 @@ React.createElement(PrettyInputText, { name: 'email', inputValue: 'Email Address
 ```
 
 ## Props
+
 #### `name` (required) (type: `string`)
 This prop is the name attribute of the generated input tag.
 
@@ -58,3 +67,6 @@ This prop is used to set the background color of the component.
 
 #### `width` (optional) (type: `integer`) (default: `200`)
 This prop is used to set the css width of the component.
+
+## Contributing
+Use [Github issues](https://github.com/elmao79/react-pretty-input/issues) for feature requests and bug reports. We actively accept pull requests.
