@@ -36,6 +36,7 @@ class App extends Component {
                     labelColor="#fff"
                     backgroundColor='#000'
                     onChange={e => this.setState({ phoneValue: e.target.value.toString() })}
+                    onValidation={inputValue => (inputValue.length < 9) ? false : true}
                 />
                 <PrettyInputText
                     name="name"
@@ -48,4 +49,8 @@ class App extends Component {
     }
 }
 
-ReactDOM.render(<App />, document.getElementById('demo-container'));
+export default App;
+
+if (typeof RUNENV === 'undefined' || RUNENV !== 'TDD') {
+    ReactDOM.render(<App />, document.getElementById('app'));
+}
