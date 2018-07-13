@@ -20,6 +20,10 @@ class PrettyInputText extends Component {
         this.handleOnKeyPress = this.handleOnKeyPress.bind(this);
     }
 
+    componentDidMount() {
+
+    }
+
     static getDerivedStateFromProps(props, state) {
         if (props.inputValue.length > 0) {
             state = Object.assign(state, { labelShow: true });
@@ -31,15 +35,12 @@ class PrettyInputText extends Component {
     }
 
     handleTextInputChange(e) {
-        this.setState({ inputValue: e.target.value.toString() });
         if (this.props.isEnabled) {
             if (e.target.value.toString().length > 0) {
-                this.setState({ labelShow: true });
                 if (this.state.errorActivated) {
                     this.setState({ errorActivated: false });
                 }
             } else {
-                this.setState({ labelShow: false });
                 if (this.props.isRequired) {
                     this.setState({ errorActivated: true });
                 }
@@ -56,7 +57,7 @@ class PrettyInputText extends Component {
 
     handleTextInputOnBlur(e) {
         this.setState({ inputActivated: false });
-        if (!this.props.onValidation(this.state.inputValue)) {
+        if (!this.props.onValidation(this.props.inputValue)) {
             this.setState({ errorActivated: true });
         }
     }

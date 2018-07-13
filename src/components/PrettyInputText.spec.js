@@ -89,4 +89,60 @@ describe('<PrettyInputText />', () => {
         });
 
     });
+
+    describe('Input text', () => {
+        it('onChange event', () => {
+            sinon.spy(PrettyInputText, 'getDerivedStateFromProps');
+            sinon.spy(PrettyInputText.prototype, 'handleTextInputChange');
+            const component = mount(
+                <PrettyInputText
+                    name="phone"
+                    labelText="Phone"
+                    inputValue="950950950"
+                    errorValue="Invalid phone"
+                    size={100}
+                    isEnabled={true}
+                    isRequired={true}
+                    onValidation={inputValue => (inputValue.length < 2) ? false : true}
+                    onChange={e => { }}
+                    onKeyPress={e => { }}
+                    labelColor='#d48'
+                    backgroundColor='#000'
+                    width={100}
+                />
+            );
+            expect(PrettyInputText.getDerivedStateFromProps.calledOnce).to.equal(true);
+            expect(PrettyInputText.prototype.handleTextInputChange.notCalled).to.equal(true);
+            expect(component.state().inputActivated).to.equal(false);
+            const inputTag = component.find('input').at(0);
+
+            inputTag.simulate('focus');
+            expect(component.props().inputValue).to.equal('950950950');
+            expect(component.state().labelShow).to.equal(true);
+            expect(component.state().inputActivated).to.equal(true);
+            expect(component.state().errorActivated).to.equal(false);
+
+            inputTag.simulate('change', { target: { value: '' } });
+            expect(PrettyInputText.prototype.handleTextInputChange.calledOnce).to.equal(true);
+            expect(component.state().inputActivated).to.equal(true);
+            expect(component.state().errorActivated).to.equal(true);
+            component.setProps({ inputValue: '' });
+            expect(component.props().inputValue).to.equal('');
+            expect(component.state().labelShow).to.equal(false);
+
+            inputTag.simulate('blur');
+            expect(component.state().inputActivated).to.equal(false);
+            expect(component.state().errorActivated).to.equal(true);
+
+            inputTag.simulate('focus');
+            component.setProps({ inputValue: '950950950' });
+            inputTag.simulate('change', { target: { value: '950950950' } });
+            expect(component.state().inputActivated).to.equal(true);
+            expect(component.state().errorActivated).to.equal(false);
+
+            inputTag.simulate('blur');
+            expect(component.state().inputActivated).to.equal(false);
+            expect(component.state().errorActivated).to.equal(false);
+        });
+    });
 });
