@@ -29,7 +29,7 @@ class PrettyInputText extends Component {
 
         return state;
     }
-    
+
     handleTextInputChange(e) {
         this.setState({ inputValue: e.target.value.toString() });
         if (this.props.isEnabled) {
@@ -56,7 +56,7 @@ class PrettyInputText extends Component {
 
     handleTextInputOnBlur(e) {
         this.setState({ inputActivated: false });
-        if (!this.props.onValidation(e)) {
+        if (!this.props.onValidation(this.state.inputValue)) {
             this.setState({ errorActivated: true });
         }
     }
@@ -112,7 +112,6 @@ PrettyInputText.propTypes = {
     inputValue: PropTypes.string,
     errorValue: PropTypes.string,
     size: PropTypes.number,
-    labelShow: PropTypes.bool,
     isEnabled: PropTypes.bool,
     isRequired: PropTypes.bool,
     onValidation: PropTypes.func,
@@ -129,7 +128,7 @@ PrettyInputText.defaultProps = {
     size: 50,
     isEnabled: true,
     isRequired: false,
-    onValidation: e => true,
+    onValidation: inputValue => true,
     onChange: null,
     onKeyPress: null,
     labelColor: '#0069ff',
