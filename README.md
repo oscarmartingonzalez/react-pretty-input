@@ -47,7 +47,8 @@ This prop is used to limit the input string length of the field.
 #### `isRequired` (optional) (type: `boolean`) (default: `false`)
 This prop is used to indicate if the input string of the field is required. If the prop value is `true` and the field is empty an error is showed in label and border field.
 
-#### `onValidation` (optional) (type: `function`) (default: `e => true`)
+#### `onValidation` (optional) (type: `function`) (default: `inputValue => true`)
+This prop is used to pass a callback function to validate de input value of the component. This function must return a boolean value.
 
 #### `onChange` (optional) (type: `function`) (default: `null`)
 This prop is used to pass a callback function invoked on input text change.
