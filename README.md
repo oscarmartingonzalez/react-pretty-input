@@ -4,6 +4,7 @@
 A pretty input form field for React projects.
 
 [![NPM version][npm-image]][npm-url]
+[![Coverage Status][coverage-badge]][coverage-url]
 [![npm download][download-image]][download-url]
 [![MIT License][license-badge]][license-url]
 
@@ -78,3 +79,5 @@ MIT
 [download-url]: https://npmjs.org/package/react-pretty-input
 [license-badge]: https://img.shields.io/npm/l/react-pretty-input.svg?style=flat-square
 [license-url]: https://github.com/elmao79/react-pretty-input/blob/master/LICENSE
+[coverage-badge]: https://coveralls.io/repos/github/elmao79/react-pretty-input/badge.svg?branch=master
+[coverage-url]: https://coveralls.io/github/elmao79/react-pretty-input?branch=master
