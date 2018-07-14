@@ -51,6 +51,6 @@ class App extends Component {
 
 export default App;
 
-if (typeof RUNENV === 'undefined' || RUNENV !== 'TDD') {
+if (!process.env || !process.env.RUNENV || process.env.RUNENV !== 'TDD') {
     ReactDOM.render(<App />, document.getElementById('app'));
 }

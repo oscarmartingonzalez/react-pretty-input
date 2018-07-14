@@ -4,10 +4,12 @@
   "description": "A pretty input form field for React projects.",
   "main": "dist/index.js",
   "scripts": {
-    "test": "mocha --reporters",
-    "test:unit": "mocha --reporter spec --require babel-core/register --require ./test/helpers.js --require ./test/dom.js --require ignore-styles 'src/**/*.spec.js'",
+    "test:unit": "RUNENV=TDD mocha --reporter spec --require babel-core/register --require ./test/helpers.js --require ./test/dom.js --require ignore-styles 'src/**/*.spec.js'",
+    "test:cov": "RUNENV=TDD istanbul cover ./node_modules/mocha/bin/_mocha -- --reporter spec --require babel-core/register --require ./test/helpers.js --require ./test/dom.js --require ignore-styles 'src/**/*.spec.js'",
+    "test:cov:es6": "RUNENV=TDD babel-node ./node_modules/.bin/isparta cover ./node_modules/mocha/bin/_mocha -- --reporter spec --require ./test/helpers.js --require ./test/dom.js --require ignore-styles 'src/**/*.spec.js'",
+    "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "build": "webpack --mode production --config webpack.prod.js",
-    "start-dev": "webpack-dev-server --mode development --open --config webpack.dev.js --hot --history-api-fallback"
+    "start:dev": "webpack-dev-server --mode development --open --config webpack.dev.js --hot --history-api-fallback"
   },
   "repository": {
     "type": "git",
@@ -39,10 +41,13 @@
     "chai": "^4.1.2",
     "chai-asserttype": "^1.0.5",
     "compass-sass-mixins": "^0.12.7",
+    "coveralls": "^3.0.2",
     "css-loader": "^1.0.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "ignore-styles": "^5.0.1",
+    "isparta": "^4.1.0",
+    "istanbul": "^0.4.5",
     "jsdom": "^11.11.0",
     "mocha": "^5.2.0",
     "node-sass": "^4.9.2",
@@ -55,5 +60,6 @@
     "webpack": "^4.15.1",
     "webpack-cli": "^3.0.8",
     "webpack-dev-server": "^3.1.4"
-  }
+  },
+  "dependencies": {}
 }
