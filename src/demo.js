@@ -37,6 +37,8 @@ class App extends Component {
                     backgroundColor='#000'
                     onChange={e => this.setState({ phoneValue: e.target.value.toString() })}
                     onValidation={inputValue => (inputValue.length < 9) ? false : true}
+                    type="number"
+                    size={9}
                 />
                 <PrettyInputText
                     name="name"

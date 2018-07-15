@@ -5,8 +5,8 @@
   "main": "dist/index.js",
   "scripts": {
     "test:unit": "RUNENV=TDD mocha --reporter spec --require babel-core/register --require ./test/helpers.js --require ./test/dom.js --require ignore-styles 'src/**/*.spec.js'",
-    "test:unit:cov": "RUNENV=TDD istanbul cover ./node_modules/mocha/bin/_mocha -- --reporter spec --require babel-core/register --require ./test/helpers.js --require ./test/dom.js --require ignore-styles 'src/**/*.spec.js'",
-    "test:unit:cov:es6": "RUNENV=TDD babel-node ./node_modules/.bin/isparta cover ./node_modules/mocha/bin/_mocha -- --reporter spec --require ./test/helpers.js --require ./test/dom.js --require ignore-styles 'src/**/*.spec.js'",
+    "test:unit:cov": "RUNENV=TDD istanbul cover -i 'src/**/*.spec.js' ./node_modules/mocha/bin/_mocha -- --reporter spec -r babel-core/register -r ./test/helpers.js -r ./test/dom.js -r ignore-styles 'src/**/*.spec.js'",
+    "test:unit:cov:es6": "RUNENV=TDD babel-node ./node_modules/.bin/isparta cover --excludes 'src/**/*.spec.js' ./node_modules/mocha/bin/_mocha -- --reporter spec -r ./test/helpers.js -r ./test/dom.js -r ignore-styles 'src/**/*.spec.js'",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "build": "webpack --mode production --config webpack.prod.js",
     "start:dev": "webpack-dev-server --mode development --open --config webpack.dev.js --hot --history-api-fallback"
@@ -51,6 +51,7 @@
     "jsdom": "^11.11.0",
     "mocha": "^5.2.0",
     "node-sass": "^4.9.2",
+    "nyc": "^12.0.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-hot-loader": "^4.3.3",

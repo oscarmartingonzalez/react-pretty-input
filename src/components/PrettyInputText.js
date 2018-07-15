@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import prettyInputTextStyle from './css/prettyInputText.scss';
+import { isValid } from '../validators/DataTypeValidator';
 
 class PrettyInputText extends Component {
 
@@ -18,10 +19,6 @@ class PrettyInputText extends Component {
         this.handleTextInputOnFocus = this.handleTextInputOnFocus.bind(this);
         this.handleTextInputOnBlur = this.handleTextInputOnBlur.bind(this);
         this.handleOnKeyPress = this.handleOnKeyPress.bind(this);
-    }
-
-    componentDidMount() {
-
     }
 
     static getDerivedStateFromProps(props, state) {
@@ -63,10 +60,14 @@ class PrettyInputText extends Component {
     }
 
     handleOnKeyPress(e) {
-        if (this.props.isEnabled) {
-            if (this.props.onKeyPress) {
-                this.props.onKeyPress(e);
+        if (isValid(this.props.type, String.fromCharCode(e.keyCode || e.which))) {
+            if (this.props.isEnabled) {
+                if (this.props.onKeyPress) {
+                    this.props.onKeyPress(e);
+                }
             }
+        } else {
+            e.preventDefault();
         }
     }
 
@@ -120,7 +121,15 @@ PrettyInputText.propTypes = {
     onKeyPress: PropTypes.func,
     labelColor: PropTypes.string,
     backgroundColor: PropTypes.string,
-    width: PropTypes.number
+    width: PropTypes.number,
+    type: (props, propName, componentName) => {
+        if (props[propName]) {
+            const allowedTypes = ['number', 'string'];
+            if (allowedTypes.indexOf(props[propName]) === -1) {
+                return new Error(`Invalid prop "${propName}" supplied to "${componentName}".`);
+            }
+        }
+    }
 };
 
 PrettyInputText.defaultProps = {
@@ -134,7 +143,8 @@ PrettyInputText.defaultProps = {
     onKeyPress: null,
     labelColor: '#0069ff',
     backgroundColor: '#fff',
-    width: 200
+    width: 200,
+    type: 'string'
 };
 
 export default PrettyInputText;

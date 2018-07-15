@@ -3,3 +3,4 @@ src/
 webpack*
 test/
 coverage/
+.DS_Store
