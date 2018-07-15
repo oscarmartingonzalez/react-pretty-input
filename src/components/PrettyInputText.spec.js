@@ -144,5 +144,39 @@ describe('<PrettyInputText />', () => {
             expect(component.state().inputActivated).to.equal(false);
             expect(component.state().errorActivated).to.equal(false);
         });
+
+        it('onKeyPress event', () => {
+            let rndValue = Math.random();
+            let onKeyPressValue = 0;
+            sinon.spy(PrettyInputText.prototype, 'handleOnKeyPress');
+            const component = mount(
+                <PrettyInputText
+                    name="phone"
+                    labelText="Phone"
+                    inputValue="950950950"
+                    errorValue="Invalid phone"
+                    size={100}
+                    isEnabled={true}
+                    isRequired={true}
+                    onValidation={inputValue => (inputValue.length < 2) ? false : true}
+                    onChange={e => { }}
+                    onKeyPress={e => { onKeyPressValue = rndValue; }}
+                    labelColor='#d48'
+                    backgroundColor='#000'
+                    width={100}
+                    type="number"
+                />
+            );
+            expect(PrettyInputText.prototype.handleOnKeyPress.notCalled).to.equal(true);
+            const inputTag = component.find('input').at(0);
+
+            inputTag.simulate('focus');
+            inputTag.simulate('keypress', { keyCode: 63 });
+            expect(PrettyInputText.prototype.handleOnKeyPress.calledOnce).to.equal(true);
+            expect(rndValue).to.not.equal(onKeyPressValue);
+            inputTag.simulate('keypress', { keyCode: 53 });
+            expect(PrettyInputText.prototype.handleOnKeyPress.calledTwice).to.equal(true);
+            expect(rndValue).to.equal(onKeyPressValue);
+        });
     });
 });
