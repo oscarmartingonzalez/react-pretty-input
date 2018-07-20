@@ -41,7 +41,7 @@ This prop is the description string of the field. It's used to show the placehol
 This prop is the default value of the component.
 
 #### `errorValue` (optional) (type: `string`) (default: `'Error'`)
-This prop is the description string of and error occurred in the field. It's used to show the error in the label to describe it.
+This prop is the description string of error occurred in the field. It's used to show the error in the label to describe it.
 
 #### `size` (optional) (type: `integer`) (default: `50`)
 This prop is used to limit the input string length of the field.

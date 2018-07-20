@@ -91,9 +91,35 @@ describe('<PrettyInputText />', () => {
     });
 
     describe('Input text', () => {
+
+        let spiedHandleOnKeyPress;
+        let spiedHandleTextInputChange;
+        let spiedGetDerivedStateFromProps;
+        let rndValue;
+        let onKeyPressValue;
+        let onKeyPressCallback;
+        let onKeyPressCallbackCallsCount;
+
+        beforeEach(() => {
+            spiedHandleOnKeyPress = sinon.spy(PrettyInputText.prototype, 'handleOnKeyPress');
+            spiedHandleTextInputChange = sinon.spy(PrettyInputText.prototype, 'handleTextInputChange');
+            spiedGetDerivedStateFromProps = sinon.spy(PrettyInputText, 'getDerivedStateFromProps');
+            rndValue = Math.random();
+            onKeyPressValue = 0;
+            onKeyPressCallbackCallsCount = 0;
+            onKeyPressCallback = e => {
+                onKeyPressCallbackCallsCount += 1;
+                onKeyPressValue = rndValue;
+            };
+        });
+
+        afterEach(function () {
+            spiedHandleOnKeyPress.restore();
+            spiedHandleTextInputChange.restore();
+            spiedGetDerivedStateFromProps.restore();
+        });
+
         it('onChange event', () => {
-            sinon.spy(PrettyInputText, 'getDerivedStateFromProps');
-            sinon.spy(PrettyInputText.prototype, 'handleTextInputChange');
             const component = mount(
                 <PrettyInputText
                     name="phone"
@@ -114,6 +140,7 @@ describe('<PrettyInputText />', () => {
             expect(PrettyInputText.getDerivedStateFromProps.calledOnce).to.equal(true);
             expect(PrettyInputText.prototype.handleTextInputChange.notCalled).to.equal(true);
             expect(component.state().inputActivated).to.equal(false);
+
             const inputTag = component.find('input').at(0);
 
             inputTag.simulate('focus');
@@ -145,10 +172,7 @@ describe('<PrettyInputText />', () => {
             expect(component.state().errorActivated).to.equal(false);
         });
 
-        it('onKeyPress event', () => {
-            let rndValue = Math.random();
-            let onKeyPressValue = 0;
-            sinon.spy(PrettyInputText.prototype, 'handleOnKeyPress');
+        it('onKeyPress event on string component', () => {
             const component = mount(
                 <PrettyInputText
                     name="phone"
@@ -160,21 +184,61 @@ describe('<PrettyInputText />', () => {
                     isRequired={true}
                     onValidation={inputValue => (inputValue.length < 2) ? false : true}
                     onChange={e => { }}
-                    onKeyPress={e => { onKeyPressValue = rndValue; }}
+                    onKeyPress={onKeyPressCallback}
+                    labelColor='#d48'
+                    backgroundColor='#000'
+                    width={100}
+                />
+            );
+            expect(onKeyPressCallbackCallsCount).to.equal(0);
+            expect(PrettyInputText.getDerivedStateFromProps.calledOnce).to.equal(true);
+            expect(PrettyInputText.prototype.handleOnKeyPress.notCalled).to.equal(true);
+
+            const inputTag = component.find('input').at(0);
+
+            inputTag.simulate('focus');
+            inputTag.simulate('keypress', { keyCode: 63 });
+            expect(onKeyPressCallbackCallsCount).to.equal(1);
+            expect(PrettyInputText.prototype.handleOnKeyPress.calledOnce).to.equal(true);
+            expect(rndValue).to.not.equal(onKeyPressValue.toString());
+            inputTag.simulate('keypress', { keyCode: 53 });
+            expect(onKeyPressCallbackCallsCount).to.equal(2);
+            expect(PrettyInputText.prototype.handleOnKeyPress.calledTwice).to.equal(true);
+            expect(rndValue).to.equal(onKeyPressValue);
+        });
+
+        it('onKeyPress event on number component', () => {
+            const component = mount(
+                <PrettyInputText
+                    name="phone"
+                    labelText="Phone"
+                    inputValue="950950950"
+                    errorValue="Invalid phone"
+                    size={100}
+                    isEnabled={true}
+                    isRequired={true}
+                    onValidation={inputValue => (inputValue.length < 2) ? false : true}
+                    onChange={e => { }}
+                    onKeyPress={onKeyPressCallback}
                     labelColor='#d48'
                     backgroundColor='#000'
                     width={100}
                     type="number"
                 />
             );
+            expect(onKeyPressCallbackCallsCount).to.equal(0);
+            expect(PrettyInputText.getDerivedStateFromProps.calledOnce).to.equal(true);
             expect(PrettyInputText.prototype.handleOnKeyPress.notCalled).to.equal(true);
+
             const inputTag = component.find('input').at(0);
 
             inputTag.simulate('focus');
             inputTag.simulate('keypress', { keyCode: 63 });
+            expect(onKeyPressCallbackCallsCount).to.equal(0);
             expect(PrettyInputText.prototype.handleOnKeyPress.calledOnce).to.equal(true);
             expect(rndValue).to.not.equal(onKeyPressValue);
             inputTag.simulate('keypress', { keyCode: 53 });
+            expect(onKeyPressCallbackCallsCount).to.equal(1);
             expect(PrettyInputText.prototype.handleOnKeyPress.calledTwice).to.equal(true);
             expect(rndValue).to.equal(onKeyPressValue);
         });
