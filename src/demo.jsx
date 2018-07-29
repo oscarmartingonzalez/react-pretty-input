@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { PrettyInputText } from './';
+import { PrettyInputText, PrettyInputTextArea } from '.';
 import demoStyle from './css/demo.scss';
 
 class App extends Component {
