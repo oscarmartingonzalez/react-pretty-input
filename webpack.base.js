@@ -6,7 +6,7 @@ const PATHS = require('./webpack.config.js').PATHS;
 module.exports = {
     entry: {
         index: Path.resolve(PATHS.SRC, 'index.js'),
-        demo: Path.resolve(PATHS.SRC, 'demo.js')
+        demo: Path.resolve(PATHS.SRC, 'demo.jsx')
     },
     output: {
         path: PATHS.DIST,
@@ -17,7 +17,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.js$/,
+                test: /\.(js|jsx)$/,
                 loader: 'babel-loader',
                 include: [ PATHS.SRC ],
                 exclude: [ Path.resolve(__dirname, 'node_modules'), PATHS.DIST ]

@@ -1,2 +1,2 @@
 
-export { default as PrettyInputText } from './components/PrettyInputText';
+export { default as PrettyInputText } from './components/PrettyInputText.jsx';
