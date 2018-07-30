@@ -4,10 +4,10 @@
   "description": "A pretty input form field for React projects.",
   "main": "dist/index.js",
   "scripts": {
-    "test:unit": "RUNENV=TDD mocha --reporter spec --require babel-core/register --require ./test/helpers.js --require ./test/dom.js --require ignore-styles 'src/**/*.spec.js'",
+    "test:unit": "RUNENV=TDD mocha --reporter spec --require babel-core/register --require ./test/helpers.js --require ./test/dom.js --require ignore-styles 'src/**/*.spec.js*'",
     "test:unit:watch": "npm run test:unit -- --watch",
-    "test:unit:cov": "RUNENV=TDD istanbul cover -i 'src/**/*.spec.js' ./node_modules/mocha/bin/_mocha -- --reporter spec -r babel-core/register -r ./test/helpers.js -r ./test/dom.js -r ignore-styles 'src/**/*.spec.js'",
-    "test:unit:cov:es6": "RUNENV=TDD babel-node ./node_modules/.bin/isparta cover --excludes 'src/**/*.spec.js' ./node_modules/mocha/bin/_mocha -- --reporter spec -r ./test/helpers.js -r ./test/dom.js -r ignore-styles 'src/**/*.spec.js'",
+    "test:unit:cov": "RUNENV=TDD istanbul cover -i 'src/**/*.spec.js*' ./node_modules/mocha/bin/_mocha -- --reporter spec -r babel-core/register -r ./test/helpers.js -r ./test/dom.js -r ignore-styles 'src/**/*.spec.js*'",
+    "test:unit:cov:es6": "RUNENV=TDD babel-node ./node_modules/.bin/isparta cover --excludes 'src/**/*.spec.js*' ./node_modules/mocha/bin/_mocha -- --reporter spec -r ./test/helpers.js -r ./test/dom.js -r ignore-styles 'src/**/*.spec.js*'",
     "test:unit:travis": "npm run test:unit:cov:es6 && npm run coveralls",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "build": "webpack --mode production --config webpack.prod.js",

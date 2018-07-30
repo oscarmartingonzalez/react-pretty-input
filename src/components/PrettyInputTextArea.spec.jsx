@@ -11,8 +11,8 @@ describe('<PrettyInputTextArea />', () => {
         it('Default props', () => {
             const component = mount(
                 <PrettyInputTextArea
-                    name="phone"
-                    labelText="Phone"
+                    name="description"
+                    labelText="Description"
                 />
             );
             const generatedProps = component.props();

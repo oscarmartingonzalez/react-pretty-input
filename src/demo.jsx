@@ -12,17 +12,24 @@ class App extends Component {
         this.state = {
             emailValue: '',
             phoneValue: '044332211',
-            nameValue: ''
+            nameValue: '',
+            descriptionValue: ''
         }
     }
 
     render() {
+        const {
+            emailValue,
+            phoneValue,
+            nameValue,
+            descriptionValue
+        } = this.state;
         const pt = React.createElement(PrettyInputText, {
             name: 'email',
             labelText: 'Email Address',
             errorValue: 'Invalid Email Address',
             isRequired: true,
-            inputValue: this.state.emailValue,
+            inputValue: emailValue,
             onChange: e => this.setState({ emailValue: e.target.value.toString() })
         });
         return (
@@ -31,7 +38,7 @@ class App extends Component {
                 <PrettyInputText
                     name="phone"
                     labelText="Phone"
-                    inputValue={this.state.phoneValue}
+                    inputValue={phoneValue}
                     errorValue="Invalid Phone"
                     labelColor="#fff"
                     backgroundColor='#000'
@@ -43,8 +50,14 @@ class App extends Component {
                 <PrettyInputText
                     name="name"
                     labelText="Name"
-                    inputValue={this.state.nameValue}
+                    inputValue={nameValue}
                     onChange={e => this.setState({ nameValue: e.target.value.toString() })}
+                />
+                <PrettyInputTextArea
+                    name="description"
+                    labelText="Description"
+                    inputValue={descriptionValue}
+                    onChange={e => this.setState({ descriptionValue: e.target.value.toString() })}
                 />
             </div>
         );

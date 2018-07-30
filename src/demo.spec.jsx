@@ -1,7 +1,7 @@
 
 import React from 'react';
 import App from './demo';
-import { PrettyInputText } from './';
+import { PrettyInputText, PrettyInputTextArea } from '.';
 
 describe('Demo App Component', () => {
     let component;
@@ -12,6 +12,7 @@ describe('Demo App Component', () => {
 
     it('renders the demo wrapper', () => {
         expect(component.find(PrettyInputText)).to.have.length(3);
-        expect(component.find('input')).to.have.length(3);
+        expect(component.find(PrettyInputTextArea)).to.have.length(1);
+        expect(component.find('input')).to.have.length(4);
     });
 });
