@@ -32,17 +32,22 @@ class PrettyInputTextArea extends Component {
         return newState;
     }
 
-    handleTextInputChange(e) {
-        const { isEnabled, isRequired, onChange } = this.props;
+    checkNotEmpty(value) {
+        const { isRequired } = this.props;
         const { errorActivated } = this.state;
-        if (isEnabled) {
-            if (e.target.value.toString().length > 0) {
-                if (errorActivated) {
-                    this.setState({ errorActivated: false });
-                }
-            } else if (isRequired) {
-                this.setState({ errorActivated: true });
+        if (value.length > 0) {
+            if (errorActivated) {
+                this.setState({ errorActivated: false });
             }
+        } else if (isRequired) {
+            this.setState({ errorActivated: true });
+        }
+    }
+
+    handleTextInputChange(e) {
+        const { isEnabled, onChange } = this.props;
+        if (isEnabled) {
+            this.checkNotEmpty(e.target.value.toString())
             if (onChange) {
                 onChange(e);
             }
@@ -53,12 +58,9 @@ class PrettyInputTextArea extends Component {
         this.setState({ inputActivated: true });
     }
 
-    handleTextInputOnBlur() {
+    handleTextInputOnBlur(e) {
         this.setState({ inputActivated: false });
-        const { onValidation, inputValue } = this.props;
-        if (!onValidation(inputValue)) {
-            this.setState({ errorActivated: true });
-        }
+        this.checkNotEmpty(e.target.value.toString())
     }
 
     handleOnKeyPress(e) {
@@ -72,10 +74,20 @@ class PrettyInputTextArea extends Component {
 
     render() {
         const {
-            width, backgroundColor, size, name, labelText, inputValue, labelColor, isEnabled, errorValue
+            width,
+            backgroundColor,
+            size,
+            name,
+            labelText,
+            inputValue,
+            labelColor,
+            isEnabled,
+            errorValue,
         } = this.props;
         const {
-            errorActivated, inputActivated, labelShow
+            errorActivated,
+            inputActivated,
+            labelShow
         } = this.state;
 
         let mainContainerStyleClasses = prettyInputTextStyle['pretty-input-text'];
@@ -93,10 +105,11 @@ class PrettyInputTextArea extends Component {
         return (
             <div className={mainContainerStyleClasses} style={{ width: `${width}px` }}>
                 <div className={insideContainerStyleClasses} style={{ background: backgroundColor }}>
-                    <input
-                        type="text"
-                        maxLength={size}
+                    <textarea
                         name={name}
+                        rows={3}
+                        cols={width}
+                        maxLength={size}
                         placeholder={labelText}
                         value={inputValue}
                         onChange={this.handleTextInputChange}
@@ -105,14 +118,8 @@ class PrettyInputTextArea extends Component {
                         onKeyPress={this.handleOnKeyPress}
                         style={{ color: labelColor }}
                         disabled={!isEnabled}
-                    />
-                    <label className="success-label" style={{ color: labelShow ? labelColor : backgroundColor }}>
-                        {labelText}
-                    </label>
-                    <label className="error-label">
-                        {errorValue}
-                    </label>
-
+                    >
+                    </textarea>
                 </div>
             </div>
         );
@@ -123,11 +130,9 @@ PrettyInputTextArea.propTypes = {
     name: PropTypes.string.isRequired,
     labelText: PropTypes.string.isRequired,
     inputValue: PropTypes.string,
-    errorValue: PropTypes.string,
     size: PropTypes.number,
     isEnabled: PropTypes.bool,
     isRequired: PropTypes.bool,
-    onValidation: PropTypes.func,
     onChange: PropTypes.func,
     onKeyPress: PropTypes.func,
     labelColor: PropTypes.string,
@@ -145,11 +150,9 @@ PrettyInputTextArea.propTypes = {
 
 PrettyInputTextArea.defaultProps = {
     inputValue: '',
-    errorValue: 'Error',
     size: 50,
     isEnabled: true,
     isRequired: false,
-    onValidation: inputValue => (inputValue.length > 0),
     onChange: null,
     onKeyPress: null,
     labelColor: '#0069ff',

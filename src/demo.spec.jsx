@@ -12,7 +12,8 @@ describe('Demo App Component', () => {
 
     it('renders the demo wrapper', () => {
         expect(component.find(PrettyInputText)).to.have.length(3);
+        expect(component.find('input')).to.have.length(3);
         expect(component.find(PrettyInputTextArea)).to.have.length(1);
-        expect(component.find('input')).to.have.length(4);
+        expect(component.find('textarea')).to.have.length(1);
     });
 });

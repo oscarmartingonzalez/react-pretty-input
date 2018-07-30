@@ -1,7 +1,7 @@
 # react-pretty-input
 
 ## Overview
-A pretty input form field for React projects.
+A pretty input and textarea form fields for React projects.
 
 [![NPM version][npm-image]][npm-url]
 [![Build Status][travis-badge]][travis-url]
@@ -29,7 +29,7 @@ import { PrettyInputText } from 'react-pretty-input';
 React.createElement(PrettyInputText, { name: 'email', labelText: 'Email Address', errorValue: 'Invalid Email Address', isRequired: true});
 ```
 
-## Props
+## PrettyInputText Props
 
 #### `name` (required) (type: `string`)
 This prop is the name attribute of the generated input tag.
@@ -51,6 +51,38 @@ This prop is used to indicate if the input string of the field is required. If t
 
 #### `onValidation` (optional) (type: `function`) (default: `inputValue => true`)
 This prop is used to pass a callback function to validate de input value of the component. This function must return a boolean value.
+
+#### `onChange` (optional) (type: `function`) (default: `null`)
+This prop is used to pass a callback function invoked on input text change.
+
+#### `onKeyPress` (optional) (type: `function`) (default: `null`)
+This prop is used to pass a callback function invoked on every key press event.
+
+#### `labelColor` (optional) (type: `string`) (default: `#0069ff`)
+This prop is used to set the color of the label.
+
+#### `backgroundColor` (optional) (type: `string`) (default: `#fff`)
+This prop is used to set the background color of the component.
+
+#### `width` (optional) (type: `integer`) (default: `200`)
+This prop is used to set the css width of the component.
+
+## PrettyInputTextArea Props
+
+#### `name` (required) (type: `string`)
+This prop is the name attribute of the generated input tag.
+
+#### `labelText` (required) (type: `string`)
+This prop is the description string of the field. It's used to show the placeholder and the label of the input to describe it.
+
+#### `inputValue` (optional) (type: `string`)
+This prop is the default value of the component.
+
+#### `size` (optional) (type: `integer`) (default: `50`)
+This prop is used to limit the input string length of the field.
+
+#### `isRequired` (optional) (type: `boolean`) (default: `false`)
+This prop is used to indicate if the input string of the field is required. If the prop value is `true` and the field is empty an error is showed in label and border field.
 
 #### `onChange` (optional) (type: `function`) (default: `null`)
 This prop is used to pass a callback function invoked on input text change.

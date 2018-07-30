@@ -58,6 +58,7 @@ class App extends Component {
                     labelText="Description"
                     inputValue={descriptionValue}
                     onChange={e => this.setState({ descriptionValue: e.target.value.toString() })}
+                    isRequired
                 />
             </div>
         );
