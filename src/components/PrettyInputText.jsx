@@ -31,39 +31,51 @@ class PrettyInputText extends Component {
         return state;
     }
 
-    handleTextInputChange(e) {
-        if (this.props.isEnabled) {
-            if (e.target.value.toString().length > 0) {
-                if (this.state.errorActivated) {
-                    this.setState({ errorActivated: false });
-                }
-            } else {
-                if (this.props.isRequired) {
-                    this.setState({ errorActivated: true });
-                }
+    checkNotEmpty(value) {
+        const { isRequired } = this.props;
+        const { errorActivated } = this.state;
+        if (value.length > 0) {
+            if (errorActivated) {
+                this.setState({ errorActivated: false });
             }
-            if (this.props.onChange) {
-                this.props.onChange(e);
-            }
-        }
-    }
-
-    handleTextInputOnFocus(e) {
-        this.setState({ inputActivated: true });
-    }
-
-    handleTextInputOnBlur(e) {
-        this.setState({ inputActivated: false });
-        if (!this.props.onValidation(this.props.inputValue)) {
+        } else if (isRequired) {
             this.setState({ errorActivated: true });
         }
     }
 
+    handleTextInputChange(e) {
+        const { isEnabled, onChange } = this.props;
+
+        if (isEnabled) {
+            this.checkNotEmpty(e.target.value.toString());
+            if (onChange) {
+                onChange(e);
+            }
+        }
+    }
+
+    handleTextInputOnFocus() {
+        this.setState({ inputActivated: true });
+    }
+
+    handleTextInputOnBlur(e) {
+        const { onValidation, inputValue } = this.props;
+
+        this.setState({ inputActivated: false });
+        if (!onValidation(inputValue)) {
+            this.setState({ errorActivated: true });
+        } else {
+            this.checkNotEmpty(e.target.value.toString());
+        }
+    }
+
     handleOnKeyPress(e) {
-        if (isValid(this.props.type, String.fromCharCode(e.keyCode || e.which))) {
-            if (this.props.isEnabled) {
-                if (this.props.onKeyPress) {
-                    this.props.onKeyPress(e);
+        const { type, isEnabled, onKeyPress } = this.props;
+        
+        if (isValid(type, String.fromCharCode(e.keyCode || e.which))) {
+            if (isEnabled) {
+                if (onKeyPress) {
+                    onKeyPress(e);
                 }
             }
         } else {

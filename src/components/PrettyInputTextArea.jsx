@@ -46,6 +46,7 @@ class PrettyInputTextArea extends Component {
 
     handleTextInputChange(e) {
         const { isEnabled, onChange } = this.props;
+        
         if (isEnabled) {
             this.checkNotEmpty(e.target.value.toString())
             if (onChange) {
@@ -65,6 +66,7 @@ class PrettyInputTextArea extends Component {
 
     handleOnKeyPress(e) {
         const { type, isEnabled, onKeyPress } = this.props;
+
         if (isEnabled) {
             if (onKeyPress) {
                 onKeyPress(e);
