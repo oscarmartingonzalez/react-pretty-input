@@ -1,6 +1,6 @@
 {
   "name": "react-pretty-input",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "A pretty input form field for React projects.",
   "main": "dist/index.js",
   "scripts": {
